@@ -1,0 +1,48 @@
+npm// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Wallet {
+  id           Int      @id @default(autoincrement())
+  address      String   @unique
+  tokenAmount  Float
+  balance      Float    @default(0)
+  rank         Int?
+  lastUpdated  DateTime @default(now())
+  transactions Transaction[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Transaction {
+  id           Int      @id @default(autoincrement())
+  wallet       Wallet   @relation(fields: [walletId], references: [id])
+  walletId     Int
+  txSignature  String   @unique
+  timestamp    DateTime @default(now())
+  amount       Float
+  direction    String   // "buy", "sell", "transfer"
+  protocol     String   // "Jupiter", "Raydium", "Orca", etc.
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model TokenHolderUpdate {
+  id          Int      @id @default(autoincrement())
+  totalHolders Int
+  lastUpdated DateTime @default(now())
+  status      String   @default("completed") // "completed", "failed", "in_progress"
+  error       String?
+  createdAt   DateTime @default(now())
+}

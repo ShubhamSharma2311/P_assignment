@@ -1,23 +1,35 @@
 {
-  "name": "backend",
+  "name": "tokenwise-backend",
   "version": "1.0.0",
+  "description": "Real-time Solana wallet intelligence backend",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:seed": "node seed.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "@solana/web3.js": "^1.87.6",
-    "chart.js": "^4.5.0",
+    "@prisma/client": "^5.0.0",
+    "@solana/spl-token": "^0.1.8",
+    "@solana/web3.js": "^1.87.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "nodemon": "^3.0.2",
-    "pg": "^8.11.3",
-    "react-chartjs-2": "^5.3.0"
-  }
+    "json2csv": "^5.0.7",
+    "prisma": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "solana",
+    "blockchain",
+    "wallet",
+    "intelligence",
+    "real-time"
+  ],
+  "author": "TokenWise Team",
+  "license": "MIT"
 }
